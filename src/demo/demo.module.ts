@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
-import { DemoComponent } from './demo.component'
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpModule } from "@angular/http";
+import { DemoComponent } from "./demo.component"
+import { MultiselectModule } from "../multiselect/multiselect.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +12,8 @@ import { DemoComponent } from './demo.component'
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MultiselectModule
   ],
   providers: [],
   bootstrap: [DemoComponent]
