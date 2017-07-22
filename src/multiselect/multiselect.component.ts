@@ -8,4 +8,12 @@ import { CommonModule } from "@angular/common";
 })
 export class MultiselectComponent { 
 
+    public isPopupOpen: boolean;
+    public areAllItemsSelected: boolean = false;
+    public isLableVisible: boolean = true;
+
+    public togglePopup():void {
+
+        this.isPopupOpen = !this.isPopupOpen;
+    }
 }

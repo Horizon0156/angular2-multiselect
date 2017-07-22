@@ -1,0 +1,33 @@
+#multiselect-container {
+    position: relative;
+}
+
+#multiselect-container .show {
+    display: block;
+}
+
+#multiselect-container .dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#selection-label {
+    position: absolute;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #464a4c;
+    z-index: 3;
+}
+
+.flat .btn,
+.flat .form-control {
+    border-radius: 0;
+}
+
+.flat .dropdown-menu {
+    border-radius: 0;
+    border-top: none;
+    margin-top: 0;
+}
