@@ -6,6 +6,21 @@
     display: block;
 }
 
+.selected {
+    color: white;
+    background-color: #0275d8;;
+}
+
+.dropdown-item:active {
+    background-color:  #f7f7f9;;
+    color: inherit;
+}
+
+.selected:hover {
+    color: white;
+    background-color: #025aa5;
+}
+
 #multiselect-container .dropdown-menu {
     max-height: 200px;
     overflow-y: auto;
@@ -19,6 +34,7 @@
     line-height: 1.25;
     color: #464a4c;
     z-index: 3;
+    pointer-events: none;
 }
 
 .flat .btn,

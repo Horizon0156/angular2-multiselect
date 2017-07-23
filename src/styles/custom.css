@@ -1,0 +1,7 @@
+
+/* Overwrite the multiselect component's style on demand */
+/*
+multiselect .selected {
+    background-color: red !important;   
+}
+*/

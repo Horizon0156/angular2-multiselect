@@ -1,50 +1,19 @@
 <div id="multiselect-container" class="flat">
     <div class="input-group">
-        <input class="form-control" />
-        <span *ngIf="isLableVisible" id="selection-label">0 selected</span> 
+        <input class="form-control" (input)="filterDataItems($event.target.value)" (blur)="isLableVisible = true" (focus)="isLableVisible = false" (click)="togglePopup()"/>
+        <span *ngIf="isLableVisible" id="selection-label">{{selectedData.length}} selected</span> 
         <span class="input-group-btn">
-            <button type="button" (click)="togglePopup()"class="btn btn-secondary dropdown-toggle dropdown-toggle-split" aria-haspopup="true" aria-expanded="false">
+            <button type="button" (click)="togglePopup()" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
         </span>
     </div>
     <div class="dropdown-menu" [class.show]="isPopupOpen">
-        <span class="dropdown-item" *ngIf="!areAllSelected">Select all</span>
-        <span class="dropdown-item" *ngIf="areAllItemsSelected">Select nothing</span>
+        <span class="dropdown-item" *ngIf="!areAllItemsSelected" (click)="selectAllItems()">Select all</span>
+        <span class="dropdown-item" *ngIf="areAllItemsSelected" (click)="deselectAllItems()">Select nothing</span>
         <div class="dropdown-divider"></div>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        <span class="dropdown-item">Item 1</span>
-        <span class="dropdown-item">Item 2</span>
-        <span class="dropdown-item">Item 3</span>
-        
+        <ng-container *ngFor="let item of dataContainer">
+            <span *ngIf="!item.isFiltered" class="dropdown-item" [class.selected]="item.isSelected" (click)="toggleItemSelection(item)">{{item.model}}</span>
+        </ng-container>
     </div>
 </div>

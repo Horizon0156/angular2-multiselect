@@ -9,17 +9,14 @@
     <div class="col-md-6">
       <p class="lead">Control</p>
       <div>
-        <multiselect></multiselect>
+        <multiselect [availableData]="primitiveData" [(selectedData)]="selectedPrimitives"></multiselect>
       </div>
     </div>
     <div class="col-md-6">
       <p class="lead">Data</p>
       <pre class="code-container">
         <code>
-[ 
-    "Option A",
-    "Option C",
-]
+selectedPrimitves = {{selectedPrimitives|json}}
         </code>
       </pre>
     </div>
