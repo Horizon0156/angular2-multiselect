@@ -18,6 +18,12 @@ export class MultiselectComponent implements OnChanges {
     @Input()
     public selectedData: Array<any> = [];
 
+    @Input()
+    public isFilterable: boolean;
+
+    @Input()
+    public customFilter: (data: Array<SelectableData>, filterText: string) => void;
+
     @Output()
     public selectedDataChange: EventEmitter<Array<any>> = new EventEmitter();
 
@@ -40,7 +46,14 @@ export class MultiselectComponent implements OnChanges {
     }
 
     public filterDataItems(): void {
-        this.dataContainer.forEach(item => this.updateFilterStatus(item));
+
+        if (this.customFilter) {
+            
+            this.customFilter(this.dataContainer, this.searchText);
+        }
+        else {
+            this.dataContainer.forEach(item => this.updateFilterStatus(item));
+        }
     }
 
     public togglePopup():void {
@@ -54,7 +67,9 @@ export class MultiselectComponent implements OnChanges {
 
     public closePopup(): void {
         this.isPopupOpen = false;
+        
         this.searchText = "";
+        this.filterDataItems();
     }
 
     public closePopupIfMouseClickFiresOutside(event: any):void {

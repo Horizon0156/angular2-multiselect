@@ -1,14 +1,15 @@
 <div id="multiselect-container" class="flat">
     <div class="input-group">
-        <input #searchBox 
-               [placeholder]="isPopupOpen || isSearchInputFocused ? 'Search...' : ''" 
+        <input #searchBox
+               [readonly]="!isFilterable"
+               [placeholder]="(isPopupOpen || isSearchInputFocused) && isFilterable ? 'Search...' : ''" 
                class="form-control" 
                [(ngModel)]="searchText"
                (input)="filterDataItems()" 
                (blur)="isSearchInputFocused = false" 
                (focus)="isSearchInputFocused = true" 
                (click)="openPopup()"/>
-        <span *ngIf="!isPopupOpen && !isSearchInputFocused" id="selection-label">{{selectedData.length}} selected</span> 
+        <span *ngIf="(!isPopupOpen && !isSearchInputFocused) || !isFilterable" id="selection-label">{{selectedData.length}} selected</span> 
         <span class="input-group-btn">
             <button type="button" 
                     (click)="togglePopup()" 
