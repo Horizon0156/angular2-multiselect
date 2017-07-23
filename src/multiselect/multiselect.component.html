@@ -1,9 +1,20 @@
 <div id="multiselect-container" class="flat">
     <div class="input-group">
-        <input class="form-control" (input)="filterDataItems($event.target.value)" (blur)="isLableVisible = true" (focus)="isLableVisible = false" (click)="togglePopup()"/>
-        <span *ngIf="isLableVisible" id="selection-label">{{selectedData.length}} selected</span> 
+        <input #searchBox 
+               [placeholder]="isPopupOpen || isSearchInputFocused ? 'Search...' : ''" 
+               class="form-control" 
+               [(ngModel)]="searchText"
+               (input)="filterDataItems()" 
+               (blur)="isSearchInputFocused = false" 
+               (focus)="isSearchInputFocused = true" 
+               (click)="openPopup()"/>
+        <span *ngIf="!isPopupOpen && !isSearchInputFocused" id="selection-label">{{selectedData.length}} selected</span> 
         <span class="input-group-btn">
-            <button type="button" (click)="togglePopup()" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" aria-haspopup="true" aria-expanded="false">
+            <button type="button" 
+                    (click)="togglePopup()" 
+                    class="btn btn-secondary dropdown-toggle dropdown-toggle-split" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
         </span>
@@ -13,7 +24,12 @@
         <span class="dropdown-item" *ngIf="areAllItemsSelected" (click)="deselectAllItems()">Select nothing</span>
         <div class="dropdown-divider"></div>
         <ng-container *ngFor="let item of dataContainer">
-            <span *ngIf="!item.isFiltered" class="dropdown-item" [class.selected]="item.isSelected" (click)="toggleItemSelection(item)">{{item.model}}</span>
+            <span *ngIf="!item.isFiltered" 
+                  class="dropdown-item" 
+                  [class.selected]="item.isSelected" 
+                  (click)="toggleItemSelection(item)">
+                  {{item.model}}
+            </span>
         </ng-container>
     </div>
 </div>

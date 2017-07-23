@@ -1,11 +1,14 @@
-import { Component, Input, EventEmitter, Output, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, EventEmitter, Output, OnChanges, SimpleChanges, ElementRef } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SelectableData } from "./models/SelectableData";
 
 @Component({
   selector: "multiselect",
   templateUrl: "multiselect.component.html",
-  styleUrls: ["multiselect.component.css"]
+  styleUrls: ["multiselect.component.css"],
+  host: {
+    '(document:click)': 'closePopupIfMouseClickFiresOutside($event)',
+  },
 })
 export class MultiselectComponent implements OnChanges { 
 
@@ -21,8 +24,10 @@ export class MultiselectComponent implements OnChanges {
     public dataContainer: Array<SelectableData> = []; 
     public searchText: string;
     public isPopupOpen: boolean;
-    public areAllItemsSelected: boolean = false;
-    public isLableVisible: boolean = true;
+    public areAllItemsSelected: boolean;
+    public isSearchInputFocused: boolean;
+
+    constructor(private _elemetReference: ElementRef) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
 
@@ -34,8 +39,8 @@ export class MultiselectComponent implements OnChanges {
         }
     }
 
-    public filterDataItems(searchText: string): void {
-        this.dataContainer.forEach(item => item.isFiltered = !item.model.toString().toLowerCase().includes(searchText.toLowerCase()));
+    public filterDataItems(): void {
+        this.dataContainer.forEach(item => this.updateFilterStatus(item));
     }
 
     public togglePopup():void {
@@ -43,8 +48,21 @@ export class MultiselectComponent implements OnChanges {
         this.isPopupOpen = !this.isPopupOpen;
     }
 
+    public openPopup(): void {
+        this.isPopupOpen = true;
+    }
+
     public closePopup(): void {
         this.isPopupOpen = false;
+        this.searchText = "";
+    }
+
+    public closePopupIfMouseClickFiresOutside(event: any):void {
+
+        let isClickedElementInside = this._elemetReference.nativeElement.contains(event.target);
+        if (!isClickedElementInside) {
+            this.closePopup();
+        }
     }
 
     public toggleItemSelection(item: SelectableData) {
@@ -69,5 +87,11 @@ export class MultiselectComponent implements OnChanges {
         this.selectedData = [];
         this.selectedDataChange.emit(this.selectedData);
         this.areAllItemsSelected = false;
+    }
+
+    private updateFilterStatus(dataItem: SelectableData) {
+        
+        let itemText = dataItem.model.toString().toLowerCase();
+        dataItem.isFiltered = !itemText.includes(this.searchText.toLowerCase());
     }
   }

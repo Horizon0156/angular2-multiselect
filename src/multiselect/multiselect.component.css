@@ -2,7 +2,11 @@
     position: relative;
 }
 
-#multiselect-container .show {
+#multiselect-container .btn:focus {
+    box-shadow: none;
+}
+
+.show {
     display: block;
 }
 
@@ -11,17 +15,17 @@
     background-color: #0275d8;;
 }
 
-.dropdown-item:active {
-    background-color:  #f7f7f9;;
-    color: inherit;
-}
-
 .selected:hover {
     color: white;
     background-color: #025aa5;
 }
 
-#multiselect-container .dropdown-menu {
+.dropdown-item:active {
+    background-color:  #f7f7f9;;
+    color: inherit;
+}
+
+ .dropdown-menu {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;

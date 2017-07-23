@@ -1,10 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import { MultiselectComponent } from "./multiselect.component";
+
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   declarations: [
     MultiselectComponent
