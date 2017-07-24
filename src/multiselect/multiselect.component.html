@@ -29,7 +29,7 @@
                   class="dropdown-item" 
                   [class.selected]="item.isSelected" 
                   (click)="toggleItemSelection(item)">
-                  {{item.model}}
+                  {{displayField ? item.model[displayField] : item.model}}
             </span>
         </ng-container>
     </div>

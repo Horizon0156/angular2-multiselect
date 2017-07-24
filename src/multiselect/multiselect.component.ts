@@ -24,6 +24,15 @@ export class MultiselectComponent implements OnChanges {
     @Input()
     public customFilter: (data: Array<SelectableData>, filterText: string) => void;
 
+    @Input()
+    public displayField: string;
+
+    @Input()
+    public valueField: string;
+
+    @Input()
+    public updateSelectedDataOnClose: boolean;
+
     @Output()
     public selectedDataChange: EventEmitter<Array<any>> = new EventEmitter();
 
@@ -32,6 +41,8 @@ export class MultiselectComponent implements OnChanges {
     public isPopupOpen: boolean;
     public areAllItemsSelected: boolean;
     public isSearchInputFocused: boolean;
+
+    private _isDirty: boolean;
 
     constructor(private _elemetReference: ElementRef) {}
 
@@ -58,7 +69,11 @@ export class MultiselectComponent implements OnChanges {
 
     public togglePopup():void {
 
-        this.isPopupOpen = !this.isPopupOpen;
+        if (this.isPopupOpen) {
+            this.closePopup();
+        } else {
+            this.openPopup();
+        }
     }
 
     public openPopup(): void {
@@ -68,14 +83,21 @@ export class MultiselectComponent implements OnChanges {
     public closePopup(): void {
         this.isPopupOpen = false;
         
+        if (this.updateSelectedDataOnClose && this._isDirty) {
+
+            this.selectedDataChange.emit(this.selectedData);
+        }
+
         this.searchText = "";
+        this._isDirty = false;
         this.filterDataItems();
     }
 
     public closePopupIfMouseClickFiresOutside(event: any):void {
 
         let isClickedElementInside = this._elemetReference.nativeElement.contains(event.target);
-        if (!isClickedElementInside) {
+        
+        if (!isClickedElementInside && this.isPopupOpen) {
             this.closePopup();
         }
     }
@@ -85,19 +107,26 @@ export class MultiselectComponent implements OnChanges {
         item.isSelected = !item.isSelected;
         this.selectedData = this.dataContainer
                                 .filter(item => item.isSelected)
-                                .map(item => item.model);
-        this.selectedDataChange.emit(this.selectedData);
+                                .map(item => this.valueField ? item.model[this.valueField] : item.model);
+        
+        if (!this.updateSelectedDataOnClose) {
+            this.selectedDataChange.emit(this.selectedData);
+        }
+        
         this.areAllItemsSelected = this.dataContainer.find(item => !item.isSelected) == undefined;
+        this._isDirty = true;
     }
 
     public selectAllItems() {
+
         this.dataContainer.forEach(item => item.isSelected = true);
-        this.selectedData = this.availableData.slice(0);
+        this.selectedData = this.availableData.slice(0).map(item => this.valueField ? item[this.valueField] : item);;
         this.selectedDataChange.emit(this.selectedData);
         this.areAllItemsSelected = true;
     }
 
     public deselectAllItems() {
+
       this.dataContainer.forEach(item => item.isSelected = false);
         this.selectedData = [];
         this.selectedDataChange.emit(this.selectedData);
