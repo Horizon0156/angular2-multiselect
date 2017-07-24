@@ -16,7 +16,33 @@
       <p class="lead">Data</p>
       <pre class="code-container">
         <code>
-selectedPrimitves = {{selectedPrimitives|json}}
+primitiveData = {{primitiveData|json}};
+
+selectedPrimitves = {{selectedPrimitives|json}};
+        </code>
+      </pre>
+    </div>
+  </div>
+   <div class="row mt-3">
+    <p>It is also possible to use complex data while defining a <code>displayField</code> and an optional
+    <code>valueField</code>
+    <div class="col-md-6">
+      <p class="lead">Control</p>
+      <div>
+        <multiselect [availableData]="complexData" 
+                     [(selectedData)]="selectedObjects" 
+                     [isFilterable]="true"
+                     [updateSelectedDataOnClose]="true"
+                     displayField="name"></multiselect>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p class="lead">Data</p>
+      <pre class="code-container">
+        <code>
+complexData = {{complexData|json}};
+
+selectedItems = {{selectedObjects|json}};
         </code>
       </pre>
     </div>
