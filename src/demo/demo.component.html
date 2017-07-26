@@ -9,7 +9,10 @@
     <div class="col-md-6">
       <p class="lead">Control</p>
       <div>
-        <multiselect [availableData]="primitiveData" [(selectedData)]="selectedPrimitives" [isFilterable]="true"></multiselect>
+        <multiselect class="flat" 
+                     [availableData]="primitiveData" 
+                     [(selectedData)]="selectedPrimitives" 
+                     [isFilterable]="true"></multiselect>
       </div>
     </div>
     <div class="col-md-6">
@@ -29,7 +32,8 @@ selectedPrimitves = {{selectedPrimitives|json}};
     <div class="col-md-6">
       <p class="lead">Control</p>
       <div>
-        <multiselect [availableData]="complexData" 
+        <multiselect class="flat"
+                     [availableData]="complexData" 
                      [(selectedData)]="selectedObjects" 
                      [isFilterable]="true"
                      [updateSelectedDataOnClose]="true"

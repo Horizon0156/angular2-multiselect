@@ -50,14 +50,3 @@
     z-index: 3;
     pointer-events: none;
 }
-
-.flat .btn,
-.flat .form-control {
-    border-radius: 0;
-}
-
-.flat .dropdown-menu {
-    border-radius: 0;
-    border-top: none;
-    margin-top: 0;
-}
