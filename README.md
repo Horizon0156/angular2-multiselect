@@ -48,7 +48,7 @@ selectedDataChange|`EventEmitter<Array<any>`|`[]`|Used to bind a callback functi
 This project holds a full demo application which uses the `MultiselectModule`. You can checkout the repository, build the application and test the component or you can download the `MultiselectModule` from the Release page to append it to your own application.
 
 ## Flat theme
-You can attach the `flat`class to the `multiselect`component as seen in the Demo to get a modern, flat control.
+You can attach the `flat`class to the `multiselect`component to get a modern and flat control, as seen in the demo application.
 ```css
 .flat .btn,
 .flat .form-control {
