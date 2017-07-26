@@ -1,6 +1,6 @@
 # Angular2Multiselect
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+Demo: https://horizon0156.github.io/angular2-multiselect/
 
 ## Development server
 
