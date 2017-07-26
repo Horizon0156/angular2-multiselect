@@ -1,6 +1,7 @@
 <div id="multiselect-container">
     <div class="input-group">
-        <input #searchBox
+        <input #searchBox 
+               i18n-placeholder
                [readonly]="!isFilterable"
                [placeholder]="(isPopupOpen || isSearchInputFocused) && isFilterable ? 'Search...' : ''" 
                class="form-control" 
@@ -9,7 +10,7 @@
                (blur)="isSearchInputFocused = false" 
                (focus)="isSearchInputFocused = true" 
                (click)="openPopup()"/>
-        <span *ngIf="(!isPopupOpen && !isSearchInputFocused) || !isFilterable" id="selection-label">{{selectedData.length}} selected</span> 
+        <span *ngIf="(!isPopupOpen && !isSearchInputFocused) || !isFilterable" id="selection-label" i18n>{{selectedData.length}} selected</span> 
         <span class="input-group-btn">
             <button type="button" 
                     (click)="togglePopup()" 
@@ -21,8 +22,8 @@
         </span>
     </div>
     <div class="dropdown-menu" [class.show]="isPopupOpen">
-        <span class="dropdown-item" *ngIf="!areAllItemsSelected" (click)="selectAllItems()">Select all</span>
-        <span class="dropdown-item" *ngIf="areAllItemsSelected" (click)="deselectAllItems()">Select nothing</span>
+        <span i18n class="dropdown-item" *ngIf="!areAllItemsSelected" (click)="selectAllItems()">Select all</span>
+        <span i18n class="dropdown-item" *ngIf="areAllItemsSelected" (click)="deselectAllItems()">Select nothing</span>
         <div class="dropdown-divider"></div>
         <ng-container *ngFor="let item of dataContainer">
             <span *ngIf="!item.isFiltered" 
